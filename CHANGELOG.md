@@ -1,6 +1,6 @@
 # OrbitAgents Changelog
 
-## v2.0.0 - Pluggable Architecture
+## v1.0.0 - Pluggable Architecture
 
 ### Major Changes
 - ✅ **Pluggable LLM Providers**: Support for multiple LLM backends
@@ -25,7 +25,7 @@
 - ✅ Updated README with provider/notifier examples
 - ✅ Added extension guides for custom providers
 
-## v1.0.0 - Open Source Release
+## v0.0.0 - Open Source Release
 
 ### Security
 - ✅ Removed all hardcoded credentials

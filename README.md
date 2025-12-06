@@ -100,7 +100,7 @@ orchestrator = EnhancedOrchestrator(
 response = orchestrator.ask("Analyze the Q3 sales data", channel=channel)
 ```
 
-For a real-world example, check out the **SRE Monitoring** use case in the `use-cases/` directory (if available) or the `examples/` folder.
+For a real-world example, check out the **Monitoring Assistant** use case in the `use-cases/` directory or the `examples/` folder.
 
 ## 📖 Documentation
 
