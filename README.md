@@ -6,7 +6,7 @@
 
 **OrbitAgents** is a flexible, open-source framework for orchestrating multiple AI agents. It empowers developers to build complex, multi-agent systems where each agent can utilize different LLM providers (Bedrock, OpenRouter, etc.) and specialized tools (MCP) to solve intricate tasks collaboratively.
 
----
+Use it alongside the companion HTTP MCP server [OrbitRemoteMCP](https://github.com/RezaImany/OrbitRemoteMCP) when you need authenticated, rate-limited, streamable MCP tools over HTTP.
 
 ## 🚀 Why OrbitAgents?
 
@@ -15,34 +15,49 @@
 - **🤖 Specialized Agents**: Create agents with distinct personalities, tools, and underlying models.
 - **⚡ Viral-Ready**: Designed for speed, scalability, and ease of contribution.
 
+## 🧭 Use cases & examples
+
+
+| Scenario             | What it shows                                          | Where to start                              |
+| -------------------- | ------------------------------------------------------ | ------------------------------------------- |
+| Monitoring Assistant | Multi-agent monitoring with MCP tools and Slack alerts | use-cases/monitoring-assistant/README.md    |
+| Simple orchestrator  | Minimal orchestration with default providers           | examples/simple_orchestrator.py             |
+| Mixed providers      | Bedrock + OpenRouter in one run                        | examples/mixed_providers.py                 |
+| Build your own       | Steps to scaffold a new use case                       | use-cases/README.md                         |
+| Remote MCP tools     | Consume an HTTP MCP server with auth + streaming       | https://github.com/RezaImany/OrbitRemoteMCP |
+
 ## 🏗️ Architecture
 
 ```mermaid
 graph LR
-    User[User Query] --> Orch[Orchestrator]
-    Orch --> A1[Agent 1<br/>(Bedrock)]
-    Orch --> A2[Agent 2<br/>(OpenRouter)]
-    Orch --> A3[Agent 3<br/>(Local)]
-    A1 --> Res[Synthesized Result]
+    User["User Query"] --> Orch["Orchestrator"]
+    Orch --> A1["Agent 1 (Bedrock)"]
+    Orch --> A2["Agent 2 (OpenRouter)"]
+    Orch --> A3["Agent 3 (Local)"]
+    A1 --> Res["Synthesized Result"]
     A2 --> Res
     A3 --> Res
-    Res --> Notifier[Notifier<br/>(Slack/Telegram)]
+    Res --> Notifier["Notifier (Slack/Telegram)"]
 ```
 
 ## ⚡ Quick Start
 
 ### 1. Install Dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 2. Configure Environment
+
 ```bash
 cp .env.example .env
-# Edit .env with your API keys
+# Edit .env with your API keys and notifier settings
+# Point MCP_SERVER_URL/MCP_API_KEY at your MCP server (OrbitRemoteMCP is a good default)
 ```
 
 ### 3. Run It
+
 ```bash
 python main.py
 ```
@@ -52,9 +67,11 @@ python main.py
 OrbitAgents is designed to be the backbone of your AI applications. Here is how you can build your own use case:
 
 ### 1. Create a Directory
+
 Create a new directory for your project (e.g., `my_agent_app`).
 
 ### 2. Initialize Components
+
 Import the necessary factories and helpers:
 
 ```python
@@ -66,10 +83,11 @@ from helpers.mcp_client import MCPClient
 # Initialize core components
 llm_provider = create_llm_provider()
 notifier, channel = create_notifier()
-mcp_client = MCPClient(...)
+mcp_client = MCPClient(...)  # Point this at OrbitRemoteMCP or any MCP server
 ```
 
 ### 3. Register Agents
+
 Define your specialized agents. Each agent can have its own personality and tools.
 
 ```python
@@ -86,6 +104,7 @@ agent_registry.register_agent(
 ```
 
 ### 4. Create Orchestrator
+
 The orchestrator manages the agents and handles the flow of information.
 
 ```python
@@ -106,6 +125,8 @@ For a real-world example, check out the **Monitoring Assistant** use case in the
 
 - [**Quick Start Guide**](QUICKSTART.md): Get up and running in minutes.
 - [**Architecture**](ARCHITECTURE.md): Deep dive into the factory pattern and core components.
+- [**Use Cases**](use-cases/README.md): Real-world scenarios built on OrbitAgents.
+- [**OrbitRemoteMCP (companion MCP server)**](https://github.com/RezaImany/OrbitRemoteMCP): Host MCP tools with auth, rate limiting, and streaming HTTP.
 - [**Contributing**](CONTRIBUTING.md): Join the community and help us build OrbitAgents.
 - [**Security**](SECURITY.md): Best practices for keeping your agents secure.
 
